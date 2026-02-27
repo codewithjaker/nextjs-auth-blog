@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-// import dbConnect from '@/lib/mongodb';
 import { connectToDB } from "@/lib/db";
 import Post from '@/models/Post';
+import Category from '@/models/Category';
+import User from '@/models/User';
 import mongoose from 'mongoose';
 
 export async function GET(
@@ -42,6 +43,16 @@ export async function PUT(
       return NextResponse.json({ error: 'Invalid post ID' }, { status: 400 });
     }
 
+    // Re-denormalize if author or category changed
+    if (body.author && mongoose.Types.ObjectId.isValid(body.author)) {
+      const author = await User.findById(body.author).select('name');
+      if (author) body.authorName = author.name;
+    }
+    if (body.category && mongoose.Types.ObjectId.isValid(body.category)) {
+      const category = await Category.findById(body.category).select('name');
+      if (category) body.categoryName = category.name;
+    }
+
     const post = await Post.findByIdAndUpdate(id, body, { new: true, runValidators: true })
       .populate('author', 'name email')
       .populate('category', 'name slug');
@@ -70,6 +81,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Invalid post ID' }, { status: 400 });
     }
 
+    // Optionally, you might want to soft-delete by setting status to 'deleted' instead.
     const post = await Post.findByIdAndDelete(id);
     if (!post) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });

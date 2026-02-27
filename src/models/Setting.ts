@@ -18,6 +18,7 @@ SettingSchema.pre("save", async function(next) {
   if (count > 0 && this.isNew) {
     throw new Error("Only one settings document can exist");
   }
+  // @ts-ignore
   next();
 });
 

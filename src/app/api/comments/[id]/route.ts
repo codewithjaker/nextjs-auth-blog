@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-// import dbConnect from '@/lib/mongodb';
 import { connectToDB } from "@/lib/db";
 import Comment from '@/models/Comment';
 import mongoose from 'mongoose';
@@ -16,7 +15,11 @@ export async function GET(
       return NextResponse.json({ error: 'Invalid comment ID' }, { status: 400 });
     }
 
-    const comment = await Comment.findById(id).populate('post', 'title slug');
+    const comment = await Comment.findById(id)
+      .populate('user', 'name email')
+      .populate('post', 'title slug')
+      .populate('parentComment');
+
     if (!comment) {
       return NextResponse.json({ error: 'Comment not found' }, { status: 404 });
     }
@@ -39,8 +42,16 @@ export async function PUT(
       return NextResponse.json({ error: 'Invalid comment ID' }, { status: 400 });
     }
 
+    // Mark as edited if content changes
+    if (body.content) {
+      body.isEdited = true;
+      body.editedAt = new Date();
+    }
+
     const comment = await Comment.findByIdAndUpdate(id, body, { new: true, runValidators: true })
-      .populate('post', 'title slug');
+      .populate('user', 'name email')
+      .populate('post', 'title slug')
+      .populate('parentComment');
 
     if (!comment) {
       return NextResponse.json({ error: 'Comment not found' }, { status: 404 });
@@ -63,6 +74,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Invalid comment ID' }, { status: 400 });
     }
 
+    // Optionally soft-delete by setting status to 'deleted'
     const comment = await Comment.findByIdAndDelete(id);
     if (!comment) {
       return NextResponse.json({ error: 'Comment not found' }, { status: 404 });

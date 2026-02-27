@@ -5,6 +5,8 @@ export interface IUser extends mongoose.Document {
   password: string;
   name: string;
   isEmailVerified: boolean;
+  profilePicture: string;
+  bio: string;
   otp?: {
     code: string;
     expiresAt: Date;
@@ -26,6 +28,8 @@ const UserSchema = new mongoose.Schema<IUser>(
     password: { type: String, required: true, select: false },
     name: { type: String, required: true },
     isEmailVerified: { type: Boolean, default: false },
+    profilePicture: { type: String, default: "" },
+    bio: { type: String, default: "" },
     otp: {
       code: String,
       expiresAt: Date,
