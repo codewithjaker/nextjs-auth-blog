@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 // import dbConnect from '@/lib/mongodb';
 import { connectToDB } from "@/lib/db";
-import Menu from '@/models/Menu';
+import Slider from '@/models/Slider';
 
 export async function GET(request: NextRequest) {
   try {
@@ -11,20 +11,19 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10');
     const skip = (page - 1) * limit;
 
-    const menus = await Menu.find()
-      .populate('parent', 'name url')
+    const sliders = await Slider.find()
       .skip(skip)
       .limit(limit)
       .sort({ order: 1, createdAt: -1 });
 
-    const total = await Menu.countDocuments();
+    const total = await Slider.countDocuments();
 
     return NextResponse.json({
-      menus,
+      sliders,
       pagination: { page, limit, total, pages: Math.ceil(total / limit) }
     });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch menus' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch sliders' }, { status: 500 });
   }
 }
 
@@ -32,8 +31,8 @@ export async function POST(request: NextRequest) {
   try {
     await connectToDB();
     const body = await request.json();
-    const menu = await Menu.create(body);
-    return NextResponse.json(menu, { status: 201 });
+    const slider = await Slider.create(body);
+    return NextResponse.json(slider, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });
   }

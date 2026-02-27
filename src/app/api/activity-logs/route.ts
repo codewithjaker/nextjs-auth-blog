@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 // import dbConnect from '@/lib/mongodb';
 import { connectToDB } from "@/lib/db";
-import Menu from '@/models/Menu';
+import ActivityLog from '@/models/ActivityLog';
 
 export async function GET(request: NextRequest) {
   try {
@@ -11,20 +11,20 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10');
     const skip = (page - 1) * limit;
 
-    const menus = await Menu.find()
-      .populate('parent', 'name url')
+    const logs = await ActivityLog.find()
+      .populate('user', 'name email')
       .skip(skip)
       .limit(limit)
-      .sort({ order: 1, createdAt: -1 });
+      .sort({ timestamp: -1 });
 
-    const total = await Menu.countDocuments();
+    const total = await ActivityLog.countDocuments();
 
     return NextResponse.json({
-      menus,
+      logs,
       pagination: { page, limit, total, pages: Math.ceil(total / limit) }
     });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch menus' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch activity logs' }, { status: 500 });
   }
 }
 
@@ -32,8 +32,8 @@ export async function POST(request: NextRequest) {
   try {
     await connectToDB();
     const body = await request.json();
-    const menu = await Menu.create(body);
-    return NextResponse.json(menu, { status: 201 });
+    const log = await ActivityLog.create(body);
+    return NextResponse.json(log, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });
   }

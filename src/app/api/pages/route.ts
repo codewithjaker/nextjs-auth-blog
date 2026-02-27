@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 // import dbConnect from '@/lib/mongodb';
 import { connectToDB } from "@/lib/db";
-import Menu from '@/models/Menu';
+import Page from '@/models/Page';
 
 export async function GET(request: NextRequest) {
   try {
@@ -11,20 +11,19 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10');
     const skip = (page - 1) * limit;
 
-    const menus = await Menu.find()
-      .populate('parent', 'name url')
+    const pages = await Page.find()
       .skip(skip)
       .limit(limit)
-      .sort({ order: 1, createdAt: -1 });
+      .sort({ createdAt: -1 });
 
-    const total = await Menu.countDocuments();
+    const total = await Page.countDocuments();
 
     return NextResponse.json({
-      menus,
+      pages,
       pagination: { page, limit, total, pages: Math.ceil(total / limit) }
     });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch menus' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch pages' }, { status: 500 });
   }
 }
 
@@ -32,9 +31,17 @@ export async function POST(request: NextRequest) {
   try {
     await connectToDB();
     const body = await request.json();
-    const menu = await Menu.create(body);
-    return NextResponse.json(menu, { status: 201 });
+
+    if (!body.slug && body.title) {
+      body.slug = body.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    }
+
+    const page = await Page.create(body);
+    return NextResponse.json(page, { status: 201 });
   } catch (error: any) {
+    if (error.code === 11000) {
+      return NextResponse.json({ error: 'Slug must be unique' }, { status: 400 });
+    }
     return NextResponse.json({ error: error.message }, { status: 400 });
   }
 }

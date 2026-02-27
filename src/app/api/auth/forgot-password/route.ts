@@ -1,7 +1,7 @@
 // app/api/auth/forgot-password/route.ts
 import { NextResponse } from "next/server";
 import { connectToDB } from "@/lib/db";
-import User from "@/lib/models/User";
+import User from "@/models/User";
 import { generateOTP, sendOTPEmail } from "@/lib/utils/otp";
 
 export async function POST(req: Request) {

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 // import dbConnect from '@/lib/mongodb';
 import { connectToDB } from "@/lib/db";
-import Comment from '@/lib/models/Comment';
+import Comment from '@/models/Comment';
 
 export async function GET(request: NextRequest) {
   try {

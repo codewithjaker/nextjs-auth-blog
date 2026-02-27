@@ -2,7 +2,7 @@
 import NextAuth from "next-auth"; // ✅ THIS IS MISSING
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDB } from "@/lib/db";
-import User from "@/lib/models/User";
+import User from "@/models/User";
 import bcrypt from "bcryptjs";
 
 export const authOptions = {

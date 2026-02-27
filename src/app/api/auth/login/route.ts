@@ -2,7 +2,7 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { connectToDB } from "@/lib/db";
-import User from "@/lib/models/User";
+import User from "@/models/User";
 import { createAccessToken } from "@/lib/utils/token";
 import {
   generateRefreshToken,

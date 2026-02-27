@@ -4,7 +4,7 @@ import { getToken } from "next-auth/jwt";
 import { NextRequest } from "next/server";
 import bcrypt from "bcryptjs";
 import { connectToDB } from "@/lib/db";
-import User from "@/lib/models/User";
+import User from "@/models/User";
 
 export async function POST(req: NextRequest) {
   try {

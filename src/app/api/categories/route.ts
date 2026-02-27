@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Category from '@/lib/models/Category';
+import Category from '@/models/Category';
 import { connectToDB } from '@/lib/db';
 
 export async function GET(request: NextRequest) {

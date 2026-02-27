@@ -1,7 +1,7 @@
 // app/api/auth/verify-otp/route.ts
 import { NextResponse } from "next/server";
 import { connectToDB } from "@/lib/db";
-import User from "@/lib/models/User";
+import User from "@/models/User";
 import { encode } from "next-auth/jwt";
 
 export async function POST(req: Request) {

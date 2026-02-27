@@ -1,7 +1,7 @@
 // app/api/auth/register/route.ts
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import User from "@/lib/models/User";
+import User from "@/models/User";
 import { connectToDB } from "@/lib/db";
 import { generateOTP, sendOTPEmail } from "@/lib/utils/otp";
 

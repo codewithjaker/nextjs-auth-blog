@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 // import Category from '@/models/Category';
 import { connectToDB } from "@/lib/db";
 import mongoose from "mongoose";
-import Category from "@/lib/models/Category";
+import Category from "@/models/Category";
 
 export async function GET(
   request: NextRequest,
