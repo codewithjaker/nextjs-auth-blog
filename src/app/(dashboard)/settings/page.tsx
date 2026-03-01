@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -413,7 +414,7 @@ export default function SettingsPage() {
                   <SelectItem value="rtl">RTL</SelectItem>
                 </SelectContent>
               </Select>
-              <Input
+              <input
                 type="radio"
                 name="defaultLang"
                 checked={lang.isDefault}
@@ -427,7 +428,7 @@ export default function SettingsPage() {
                   form.setValue("localization.languages", newLangs);
                 }}
               />
-              <Input
+              <input
                 type="checkbox"
                 checked={lang.isActive}
                 onChange={() => {
@@ -482,7 +483,7 @@ export default function SettingsPage() {
                   form.setValue("businessHours", newHours);
                 }}
               />
-              <Input
+              <input
                 type="checkbox"
                 checked={hour.isClosed || false}
                 onChange={() => {
