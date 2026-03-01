@@ -413,7 +413,7 @@ export default function SettingsPage() {
                   <SelectItem value="rtl">RTL</SelectItem>
                 </SelectContent>
               </Select>
-              <input
+              <Input
                 type="radio"
                 name="defaultLang"
                 checked={lang.isDefault}
@@ -427,7 +427,7 @@ export default function SettingsPage() {
                   form.setValue("localization.languages", newLangs);
                 }}
               />
-              <input
+              <Input
                 type="checkbox"
                 checked={lang.isActive}
                 onChange={() => {
@@ -482,7 +482,7 @@ export default function SettingsPage() {
                   form.setValue("businessHours", newHours);
                 }}
               />
-              <input
+              <Input
                 type="checkbox"
                 checked={hour.isClosed || false}
                 onChange={() => {
