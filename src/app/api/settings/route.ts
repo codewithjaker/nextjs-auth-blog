@@ -52,14 +52,21 @@ export async function GET() {
   try {
     await connectToDB();
 
-    const settings = await Setting.findOne();
+    const settings = await Setting.findOne().lean();
+
+    if (!settings) {
+      return NextResponse.json(
+        { success: false, message: "Settings not found" },
+        { status: 404 },
+      );
+    }
 
     return NextResponse.json(
       {
         success: true,
         data: settings,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error: any) {
     return NextResponse.json(
@@ -67,7 +74,7 @@ export async function GET() {
         success: false,
         message: error.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -88,7 +95,7 @@ export async function POST(req: NextRequest) {
           success: false,
           message: "Settings already exist",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -99,7 +106,7 @@ export async function POST(req: NextRequest) {
         success: true,
         data: newSetting,
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error: any) {
     return NextResponse.json(
@@ -107,7 +114,7 @@ export async function POST(req: NextRequest) {
         success: false,
         message: error.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -124,7 +131,7 @@ export async function PUT(req: NextRequest) {
     const updated = await Setting.findOneAndUpdate(
       {},
       { $set: body },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
 
     if (!updated) {
@@ -133,7 +140,7 @@ export async function PUT(req: NextRequest) {
           success: false,
           message: "Settings not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -142,7 +149,7 @@ export async function PUT(req: NextRequest) {
         success: true,
         data: updated,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error: any) {
     return NextResponse.json(
@@ -150,7 +157,7 @@ export async function PUT(req: NextRequest) {
         success: false,
         message: error.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -170,7 +177,7 @@ export async function DELETE() {
           success: false,
           message: "Settings not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -179,7 +186,7 @@ export async function DELETE() {
         success: true,
         message: "Settings deleted successfully",
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error: any) {
     return NextResponse.json(
@@ -187,7 +194,7 @@ export async function DELETE() {
         success: false,
         message: error.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
