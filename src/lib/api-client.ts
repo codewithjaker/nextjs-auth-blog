@@ -40,6 +40,28 @@ export const api = {
   getSettings: () => fetchAPI("/settings"),
   updateSettings: (data: any) =>
     fetchAPI("/settings", { method: "PUT", body: JSON.stringify(data) }),
+
+  // Add these methods inside the api object
+  getFAQs: (params?: any) => fetchAPI(`/faqs?${new URLSearchParams(params)}`),
+  getFAQ: (id: string) => fetchAPI(`/faqs/${id}`),
+  createFAQ: (data: any) =>
+    fetchAPI("/faqs", { method: "POST", body: JSON.stringify(data) }),
+  updateFAQ: (id: string, data: any) =>
+    fetchAPI(`/faqs/${id}`, { method: "PUT", body: JSON.stringify(data) }),
+  deleteFAQ: (id: string) => fetchAPI(`/faqs/${id}`, { method: "DELETE" }),
+
+  // Sliders
+  getSliders: (params?: any) =>
+    fetchAPI(`/sliders?${new URLSearchParams(params)}`),
+  getSlider: (id: string) => fetchAPI(`/sliders/${id}`),
+  createSlider: (data: any) =>
+    fetchAPI("/sliders", { method: "POST", body: JSON.stringify(data) }),
+  updateSlider: (id: string, data: any) =>
+    fetchAPI(`/sliders/${id}`, { method: "PUT", body: JSON.stringify(data) }),
+  deleteSlider: (id: string) =>
+    fetchAPI(`/sliders/${id}`, { method: "DELETE" }),
+
+  
   // Add other resources following same pattern
   // ...
 };

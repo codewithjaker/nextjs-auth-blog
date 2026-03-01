@@ -138,6 +138,8 @@ const SettingSchema = new mongoose.Schema(
     marketingIntegrations: { type: [MarketingIntegrationSchema], default: [] },
     googleMapEmbed: { type: String, trim: true },
 
+    liveChatId: { type: String, trim: true },
+
     /* ---------- Localization ---------- */
     localization: {
       languages: {

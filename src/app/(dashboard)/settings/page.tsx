@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -46,6 +45,7 @@ const settingsSchema = z.object({
       isActive: z.boolean(),
     }),
   ),
+  liveChatId: z.string().optional(),
   currency: z.object({
     code: z
       .string()
@@ -291,6 +291,23 @@ export default function SettingsPage() {
           >
             Add Integration
           </Button>
+
+          <FormField
+            control={form.control}
+            name="liveChatId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Live Chat Widget ID (Tawk.to)</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    placeholder="Enter Tawk.to ID like abc123"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           <FormField
             control={form.control}
