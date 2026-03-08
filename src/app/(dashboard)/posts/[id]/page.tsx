@@ -39,13 +39,14 @@
 //   );
 // }
 
-'use client';
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-import { api } from '@/lib/api-client';
-import { PostForm } from '@/components/forms/post-form';
-
+"use client";
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { api } from "@/lib/api-client";
+import { PostForm } from "@/components/forms/post-form";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 export default function EditPostPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -53,7 +54,8 @@ export default function EditPostPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.getPost(id)
+    api
+      .getPost(id)
       .then((data) => {
         // Transform populated fields to IDs
         const transformed = {
@@ -63,17 +65,17 @@ export default function EditPostPage() {
         };
         setPost(transformed);
       })
-      .catch((err) => toast.error(err.message || 'Failed to fetch post'))
+      .catch((err) => toast.error(err.message || "Failed to fetch post"))
       .finally(() => setLoading(false));
   }, [id]);
 
   const onSubmit = async (data: any) => {
     try {
       await api.updatePost(id, data);
-      toast.success('Post updated successfully');
-      router.push('/posts');
+      toast.success("Post updated successfully");
+      router.push("/posts");
     } catch (error: any) {
-      toast.error(error.message || 'Failed to update post');
+      toast.error(error.message || "Failed to update post");
     }
   };
 
@@ -82,7 +84,13 @@ export default function EditPostPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Edit Post</h1>
+      <div className="flex items-center gap-4 mb-6">
+        <Button variant="outline" size="icon" onClick={() => router.back()}>
+          <ArrowLeft className="h-4 w-4" />
+        </Button>
+        <h1 className="text-3xl font-bold">Edit Post</h1>
+      </div>
+
       <PostForm initialData={post} onSubmit={onSubmit} />
     </div>
   );

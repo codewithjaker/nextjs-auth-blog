@@ -222,7 +222,7 @@ export default function SettingsPage() {
           {/* ================== INTEGRATIONS ================== */}
           <h2 className="text-xl font-semibold">Marketing Integrations</h2>
           {marketingArray.fields.map((m, idx) => (
-            <div key={m.id} className="flex gap-2 mb-2">
+            <div key={m.id} className="flex gap-2 items-center mb-2">
               {["name", "key"].map((f) => (
                 <FormField
                   key={f}
@@ -245,7 +245,7 @@ export default function SettingsPage() {
                   <FormItem>
                     <FormLabel>Type</FormLabel>
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="w-full">
+                      <SelectTrigger className="w-40">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>

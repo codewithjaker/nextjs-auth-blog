@@ -4,6 +4,8 @@ import { useParams, useRouter } from "next/navigation";
 import { api } from "@/lib/api-client";
 import { SocialLinkForm } from "@/components/forms/social-link-form";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 export default function EditSocialLinkPage() {
   const { id } = useParams<{ id: string }>();
@@ -34,7 +36,12 @@ export default function EditSocialLinkPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Edit Social Link</h1>
+      <div className="flex items-center gap-4 mb-6">
+        <Button variant="outline" size="icon" onClick={() => router.back()}>
+          <ArrowLeft className="h-4 w-4" />
+        </Button>
+        <h1 className="text-3xl font-bold">Edit Social Link</h1>
+      </div>
       <SocialLinkForm initialData={link} onSubmit={onSubmit} />
     </div>
   );

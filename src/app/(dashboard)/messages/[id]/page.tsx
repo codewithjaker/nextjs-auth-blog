@@ -4,7 +4,8 @@ import { useParams, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { api } from '@/lib/api-client';
 import { MessageForm } from '@/components/forms/message-form';
-
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 export default function EditMessagePage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -33,7 +34,13 @@ export default function EditMessagePage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Edit Message</h1>
+        <div className="flex items-center gap-4 mb-6">
+        <Button variant="outline" size="icon" onClick={() => router.back()}>
+          <ArrowLeft className="h-4 w-4" />
+        </Button>
+      <h1 className="text-3xl font-bold">Edit Message</h1>
+      </div>
+
       <MessageForm initialData={message} onSubmit={onSubmit} />
     </div>
   );

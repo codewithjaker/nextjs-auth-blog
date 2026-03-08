@@ -1,25 +1,32 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-import { api } from '@/lib/api-client';
-import { PostForm } from '@/components/forms/post-form';
-
+"use client";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { api } from "@/lib/api-client";
+import { PostForm } from "@/components/forms/post-form";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 export default function NewPostPage() {
   const router = useRouter();
 
   const onSubmit = async (data: any) => {
     try {
       await api.createPost(data);
-      toast.success('Post created successfully');
-      router.push('/posts');
+      toast.success("Post created successfully");
+      router.push("/posts");
     } catch (error: any) {
-      toast.error(error.message || 'Failed to create post');
+      toast.error(error.message || "Failed to create post");
     }
   };
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Create Post</h1>
+      <div className="flex items-center gap-4 mb-6">
+        <Button variant="outline" size="icon" onClick={() => router.back()}>
+          <ArrowLeft className="h-4 w-4" />
+        </Button>
+        <h1 className="text-3xl font-bold">Create Post</h1>
+      </div>
+
       <PostForm onSubmit={onSubmit} />
     </div>
   );

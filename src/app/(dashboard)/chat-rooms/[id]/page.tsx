@@ -4,7 +4,8 @@ import { useParams, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { api } from '@/lib/api-client';
 import { ChatRoomForm } from '@/components/forms/chat-room-form';
-
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 export default function EditChatRoomPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -33,7 +34,13 @@ export default function EditChatRoomPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Edit Chat Room</h1>
+        <div className="flex items-center gap-4 mb-6">
+        <Button variant="outline" size="icon" onClick={() => router.back()}>
+          <ArrowLeft className="h-4 w-4" />
+        </Button>
+      <h1 className="text-3xl font-bold">Edit Chat Room</h1>
+      </div>
+
       <ChatRoomForm initialData={room} onSubmit={onSubmit} />
     </div>
   );

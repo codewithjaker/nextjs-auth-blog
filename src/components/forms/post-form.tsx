@@ -836,7 +836,7 @@ export function PostForm({ initialData, onSubmit }: PostFormProps) {
                 <FormLabel>Author *</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select author" />
                     </SelectTrigger>
                   </FormControl>
@@ -863,7 +863,7 @@ export function PostForm({ initialData, onSubmit }: PostFormProps) {
                   value={field.value || ""}
                 >
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="None" />
                     </SelectTrigger>
                   </FormControl>
@@ -888,7 +888,7 @@ export function PostForm({ initialData, onSubmit }: PostFormProps) {
                 <FormLabel>Status</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue />
                     </SelectTrigger>
                   </FormControl>

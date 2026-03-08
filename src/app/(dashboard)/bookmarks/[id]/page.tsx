@@ -1,10 +1,11 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-import { api } from '@/lib/api-client';
-import { BookmarkForm } from '@/components/forms/bookmark-form';
-
+"use client";
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { api } from "@/lib/api-client";
+import { BookmarkForm } from "@/components/forms/bookmark-form";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 export default function EditBookmarkPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -12,19 +13,20 @@ export default function EditBookmarkPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.getBookmark(id)
+    api
+      .getBookmark(id)
       .then(setBookmark)
-      .catch((err) => toast.error(err.message || 'Failed to fetch bookmark'))
+      .catch((err) => toast.error(err.message || "Failed to fetch bookmark"))
       .finally(() => setLoading(false));
   }, [id]);
 
   const onSubmit = async (data: any) => {
     try {
       await api.updateBookmark(id, data);
-      toast.success('Bookmark updated successfully');
-      router.push('/bookmarks');
+      toast.success("Bookmark updated successfully");
+      router.push("/bookmarks");
     } catch (error: any) {
-      toast.error(error.message || 'Failed to update bookmark');
+      toast.error(error.message || "Failed to update bookmark");
     }
   };
 
@@ -33,7 +35,14 @@ export default function EditBookmarkPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Edit Bookmark</h1>
+      <div className="flex items-center gap-4 mb-6">
+        <Button variant="outline" size="icon" onClick={() => router.back()}>
+          <ArrowLeft className="h-4 w-4" />
+        </Button>
+
+        <h1 className="text-3xl font-bold ">Edit Bookmark</h1>
+      </div>
+
       <BookmarkForm initialData={bookmark} onSubmit={onSubmit} />
     </div>
   );
