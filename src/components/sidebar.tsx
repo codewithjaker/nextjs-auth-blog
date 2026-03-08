@@ -24,9 +24,12 @@ import {
 const navItems = [
   { href: "/", label: "Dashboard", icon: Home },
   { href: "/users", label: "Users", icon: Users },
-  { href: "/posts", label: "Posts", icon: FileText },
   { href: "/categories", label: "Categories", icon: Folder },
+  { href: "/posts", label: "Posts", icon: FileText },
   { href: "/comments", label: "Comments", icon: MessageCircle },
+  { href: "/follows", label: "Follows", icon: Users },
+  { href: "/reactions", label: "Reactions", icon: Heart },
+  { href: "/bookmarks", label: "Bookmarks", icon: Bookmark },
   { href: "/menus", label: "Menus", icon: Menu },
   { href: "/sliders", label: "Sliders", icon: Image },
   { href: "/pages", label: "Pages", icon: File },
@@ -34,11 +37,9 @@ const navItems = [
   { href: "/social-links", label: "Social Links", icon: Link2 },
   { href: "/settings", label: "Settings", icon: Settings },
   { href: "/activity-logs", label: "Activity Logs", icon: Activity },
-  { href: "/follows", label: "Follows", icon: Users },
-  { href: "/reactions", label: "Reactions", icon: Heart },
-  { href: "/bookmarks", label: "Bookmarks", icon: Bookmark },
   { href: "/notifications", label: "Notifications", icon: Bell },
-  { href: "/chat", label: "Chat", icon: MessageSquare },
+  { href: "/chat-rooms", label: "Chat", icon: MessageSquare },
+  { href: '/messages', label: 'Messages', icon: MessageSquare },
 ];
 
 export function Sidebar() {
