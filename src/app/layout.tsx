@@ -12,7 +12,7 @@ import { Toaster } from "sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Mustaqbal Zamzam Group | Electronics Trading",
+  title: "NextJs Blog Application",
   description: "Leading electronics trading group with $240M+ annual turnover",
 };
 

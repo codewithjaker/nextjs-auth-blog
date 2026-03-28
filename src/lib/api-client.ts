@@ -157,6 +157,14 @@ export const api = {
   updateActivityLog: (id: string, data: any) => fetchAPI(`/activity-logs/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteActivityLog: (id: string) => fetchAPI(`/activity-logs/${id}`, { method: 'DELETE' }),
 
+   // Admin endpoints
+  getAdminStats: () => fetchAPI('/admin/stats'),
+  getActivityTimeline: () => fetchAPI('/admin/activity/timeline'),
+  getPopularPosts: () => fetchAPI('/admin/posts/popular'),
+  getActiveUsers: () => fetchAPI('/admin/users/active'),
+  getReactionsSummary: () => fetchAPI('/admin/reactions/summary'),
+
+  
   // Add other resources following same pattern
   // ...
 };
