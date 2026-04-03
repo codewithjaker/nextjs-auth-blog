@@ -8,6 +8,8 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
+import { AuthProvider } from "@/providers/AuthProvider";
+import Navigation from "@/components/Navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,10 +32,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div>
-            {children}
-            <Toaster />
-          </div>
+          <AuthProvider>
+            <div>
+              <Navigation />
+              {children}
+              <Toaster />
+            </div>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

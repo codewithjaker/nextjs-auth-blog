@@ -34,7 +34,7 @@
 // }
 
 import { Sidebar } from "@/components/sidebar";
-import { AuthProvider } from "@/lib/auth";
+import { AuthProvider } from "@/providers/AuthProvider";
 
 export default function DashboardLayout({
   children,
